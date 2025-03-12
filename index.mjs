@@ -7,6 +7,7 @@ import { fibonacci, fibonaciiSolver } from './fibonacii-worker.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const PORT=process.env.PORT;
 
 const app = express();
 app.use(json());
@@ -54,8 +55,8 @@ app.get('/fibonacci/:number', async (req, res) => {
     }
 });
 
-app.listen(8080, () => {
-    console.log(`Server started at port 8080`);
+app.listen(PORT, () => {
+    console.log(`Server started at port ${PORT}`);
 
 })
 
