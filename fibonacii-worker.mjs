@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 
 export async function fibonacci(n) {
     if(isMainThread) {
+        console.log(`Main thread PID:`, process.pid);
         return new Promise((resolve, reject) => {
             const result = [];
             
@@ -47,6 +48,7 @@ export function fibonaciiSolver(num) {
 
 // Add this to handle worker execution
 if (!isMainThread) {
+    console.log(`Child thread PID:`, process.pid);
     const result = fibonaciiSolver(workerData.num);
     parentPort.postMessage(result);
     parentPort.close();
