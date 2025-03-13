@@ -5,8 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --env-file=.env index.mjs",
-    "test": "mocha 'test/**/*.test.mjs'"
+    "start": "node index.mjs",
+    "test": "mocha 'test/**/*.test.mjs'",
+    "lint": "pnpm dlx eslint ./*.mjs"
   },
   "keywords": [],
   "author": "",
