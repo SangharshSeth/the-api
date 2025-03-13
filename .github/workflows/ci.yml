@@ -60,11 +60,14 @@ jobs:
           env:
             ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
             ECR_REPOSITORY: ${{ secrets.ECR_REPO }}
+            APP_NAME: fibonacci-api
             IMAGE_TAG: ${{ steps.get-commit-hash.outputs.commit-hash }}-${{ steps.get-timestamp.outputs.timestamp }}
           run: |
-            docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-            docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        
-        
-  
-        
+            # Build with both versioned and latest tags
+            docker build -t $ECR_REGISTRY/$ECR_REPOSITORY/$APP_NAME:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY/$APP_NAME:latest .
+            # Push both tags to ECR
+            docker push $ECR_REGISTRY/$ECR_REPOSITORY/$APP_NAME:$IMAGE_TAG
+            docker push $ECR_REGISTRY/$ECR_REPOSITORY/$APP_NAME:latest
+
+
+
