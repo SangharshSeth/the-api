@@ -125,7 +125,7 @@
     <script>
         async function testCORS() {
             try {
-                const response = await fetch('http://localhost:8080/health-check', {
+                const response = await fetch('http://3.111.51.4/health-check', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -158,7 +158,7 @@
                     throw new Error('Please enter a number');
                 }
 
-                const response = await fetch(`http://localhost:8080/fibonacci/${number}`, {
+                const response = await fetch(`http://3.111.51.4/fibonacci/${number}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
