@@ -2,12 +2,13 @@ import express, { urlencoded, json } from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import cors from 'cors';
+import os from 'os';
 import { logger } from './middlewares.mjs';
 import { fibonacci, fibonaciiSolver } from './fibonacii-worker.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const PORT=process.env.PORT;
+const PORT=process.env.PORT || 8080;
 
 const app = express();
 app.use(json());
@@ -29,6 +30,23 @@ app.get('/health-check', (_req, res) => {
 
 app.get('/fibonacci/:number', async (req, res) => {
     try {
+        // System Information Logging
+        console.log('System Information:');
+        console.log('------------------');
+        console.log(`Architecture: ${os.arch()}`);
+        console.log(`Platform: ${os.platform()}`);
+        console.log(`OS Type: ${os.type()}`);
+        console.log(`OS Release: ${os.release()}`);
+        console.log(`CPU Model: ${os.cpus()[0].model}`);
+        console.log(`Number of CPUs: ${os.cpus().length}`);
+        console.log(`Available Parallelism: ${os.availableParallelism?.() || 'Not supported'}`);
+        console.log(`Total Memory: ${Math.round(os.totalmem() / (1024 * 1024 * 1024))}GB`);
+        console.log(`Free Memory: ${Math.round(os.freemem() / (1024 * 1024 * 1024))}GB`);
+        console.log(`Load Average: ${os.loadavg().join(', ')}`);
+        console.log(`Process PID: ${process.pid}`);
+        console.log(`Node Version: ${process.version}`);
+        console.log('------------------');
+
         const n = Number(req.params.number);
 
         // Single-threaded execution
