@@ -42,4 +42,33 @@ app.get('/fibonacci/:number', async (req, res) => {
 
         return res.status(200).json({
             single_threaded: {
-                re
+                result: result_single,
+                computation_time: `${seconds1}s ${Math.round(nanoseconds1 / 1000000)}ms`
+            },
+            worker_threaded: {
+                result: result_worker,
+                computation_time: `${seconds2}s ${Math.round(nanoseconds2 / 1000000)}ms`
+            }
+        });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Server started at port ${PORT}`);
+
+})
+
+process.on('uncaughtException', (error, origin) => {
+    //simulate graceful shutdown
+    console.log(`uncaughtexception ${error} at ${origin}`);
+    process.exit(0);
+})
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.log(`rejected due to ${reason} at ${promise}`);
+    process.exit(0);
+})
+
+export { app }

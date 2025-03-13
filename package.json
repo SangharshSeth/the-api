@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.mjs",
     "test": "mocha 'test/**/*.test.mjs'",
-    "lint": "pnpm dlx eslint ./*.mjs"
+    "lint": "eslint . --ext .mjs"
   },
   "keywords": [],
   "author": "",
