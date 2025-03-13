@@ -17,6 +17,7 @@ app.use(cors({
     origin: "*"
 }))
 
+app.set('trust proxy', true);
 app.use(logger);
 
 app.use(express.static(path.join(__dirname, 'public')));
